@@ -6,7 +6,7 @@ import { Input } from "../ui/input";
 import Chart from "./chart";
 
 type ObjectArray = {
-  [key: string]: string | number;
+  [key: string]: number;
 };
 
 type stepProp = {
@@ -1187,7 +1187,7 @@ function Calculator({ step, steps }: { step: number; steps: stepProp[] }) {
                     onChange={(e) => {
                       setFormState({
                         ...formState,
-                        [field.name]: e.target.value,
+                        [field.name]: Number(e.target.value),
                       });
                     }}
                     placeholder={field.placeholder}
@@ -1205,8 +1205,9 @@ function Calculator({ step, steps }: { step: number; steps: stepProp[] }) {
           </div>
         </div>
       </div>
-
-      <Chart currentChartState={currentChartState} />
+      {Math.max(...Object.values(formState)) > 0 && (
+        <Chart currentChartState={currentChartState} />
+      )}
     </>
   );
 }
