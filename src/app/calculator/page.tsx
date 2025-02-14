@@ -1,11 +1,6 @@
 "use client";
-import CheckBox from "@/components/calculator/checkBox";
-import CheckBoxInput from "@/components/calculator/checkBoxInput";
 import Progressbar from "@/components/calculator/progressBar";
-import RadioButton from "@/components/calculator/radioButton";
-import SliderBar from "@/components/calculator/sliderBar";
-import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import "material-symbols";
 import Step1 from "@/components/pages/step1";
@@ -17,7 +12,7 @@ import Step6 from "@/components/pages/step6";
 import Step7 from "@/components/pages/step7";
 import Step8 from "@/components/pages/step8";
 
-function page() {
+const Calculator = () => {
   const [page, setPage] = useState(1);
 
   return (
@@ -106,6 +101,6 @@ function page() {
       </div>
     </div>
   );
-}
+};
 
-export default page;
+export default Calculator;
