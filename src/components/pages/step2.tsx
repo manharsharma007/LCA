@@ -11,45 +11,40 @@ function Step2() {
       return newState;
     },
     {
-      supplierTransportTruck: 0,
+      supplierTransportTruck: 100,
       supplierTransportSea: 0,
       supplierTransportRail: 0,
       supplierTransportAir: 0,
-      enableTruck: false,
+      enableTruck: true,
       enableSea: false,
       enableRail: false,
       enableAir: false,
     }
   );
 
-  const { getItem, saveToLocalStorage } = useStorage();
+  const { getItem, getSavedNumber, saveToLocalStorage } = useStorage();
 
   useEffect(() => {
     updateState({
-      supplierTransportTruck:
-        getItem("supplierTransportTruck") !== null
-          ? parseFloat(getItem("supplierTransportTruck")!)
-          : 100,
+      supplierTransportTruck: getSavedNumber("supplierTransportTruck", 100),
     });
     updateState({
-      supplierTransportSea:
-        getItem("supplierTransportSea") !== null
-          ? parseFloat(getItem("supplierTransportSea")!)
-          : 0,
+      supplierTransportSea: getSavedNumber("supplierTransportSea", 0),
     });
     updateState({
-      supplierTransportRail:
-        getItem("supplierTransportRail") !== null
-          ? parseFloat(getItem("supplierTransportRail")!)
-          : 0,
+      supplierTransportRail: getSavedNumber("supplierTransportRail", 0),
     });
     updateState({
-      supplierTransportAir:
-        getItem("supplierTransportAir") !== null
-          ? parseFloat(getItem("supplierTransportAir")!)
-          : 0,
+      supplierTransportAir: getSavedNumber("supplierTransportAir", 0),
     });
-    updateState({ enableTruck: getItem("enableTruck") == "true" });
+    updateState({
+      enableTruck:
+        getItem("enableTruck") == "true" ||
+        (getItem("enableTruck") == null &&
+          getItem("enableSea") == null &&
+          getItem("enableRail") == null &&
+          getItem("enableAir") == null),
+    });
     updateState({ enableSea: getItem("enableSea") == "true" });
     updateState({ enableRail: getItem("enableRail") == "true" });
     updateState({ enableAir: getItem("enableAir") == "true" });
@@ -82,7 +77,10 @@ function Step2() {
                 value: state.supplierTransportTruck,
                 checked: state.enableTruck,
                 onCheckedChange: (e: any) => {
-                  saveToLocalStorage("supplierTransportTruck", state.truck);
+                  saveToLocalStorage(
+                    "supplierTransportTruck",
+                    state.supplierTransportTruck
+                  );
                   saveToLocalStorage("enableTruck", e);
                   updateState({ enableTruck: e });
                 },
@@ -98,7 +96,10 @@ function Step2() {
                 value: state.supplierTransportSea,
                 checked: state.enableSea,
                 onCheckedChange: (e: any) => {
-                  saveToLocalStorage("supplierTransportSea", state.sea);
+                  saveToLocalStorage(
+                    "supplierTransportSea",
+                    state.supplierTransportSea
+                  );
                   saveToLocalStorage("enableSea", e);
                   updateState({ enableSea: e });
                 },
@@ -114,7 +115,10 @@ function Step2() {
                 value: state.supplierTransportRail,
                 checked: state.enableRail,
                 onCheckedChange: (e: any) => {
-                  saveToLocalStorage("supplierTransportRail", state.rail);
+                  saveToLocalStorage(
+                    "supplierTransportRail",
+                    state.supplierTransportRail
+                  );
                   saveToLocalStorage("enableRail", e);
                   updateState({ enableRail: e });
                 },
@@ -130,7 +134,10 @@ function Step2() {
                 value: state.supplierTransportAir,
                 checked: state.enableAir,
                 onCheckedChange: (e: any) => {
-                  saveToLocalStorage("supplierTransportAir", state.air);
+                  saveToLocalStorage(
+                    "supplierTransportAir",
+                    state.supplierTransportAir
+                  );
                   saveToLocalStorage("enableAir", e);
                   updateState({ enableAir: e });
                 },

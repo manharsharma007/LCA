@@ -35,12 +35,23 @@ function Step4() {
       citricAcid: getSavedNumber("citricAcid", 5),
       heraPro: getSavedNumber("heraPro", 5),
       dualUltra: getSavedNumber("dualUltra", 5),
-      enableSodiumHydroxide: getItem("enableSodiumHydroxide") == "true",
-      enableHydrogenPeroxide: getItem("enableHydrogenPeroxide") == "true",
-      enableNonIonic: getItem("enableNonIonic") == "true",
-      enableCitricAcid: getItem("enableCitricAcid") == "true",
-      enableHeraPro: getItem("enableHeraPro") == "true",
-      enableDualUltra: getItem("enableDualUltra") == "true",
+      enableSodiumHydroxide:
+        getItem("enableSodiumHydroxide") == "true" ||
+        getItem("enableSodiumHydroxide") == null,
+      enableHydrogenPeroxide:
+        getItem("enableHydrogenPeroxide") == "true" ||
+        getItem("enableHydrogenPeroxide") == null,
+      enableNonIonic:
+        getItem("enableNonIonic") == "true" ||
+        getItem("enableNonIonic") == null,
+      enableCitricAcid:
+        getItem("enableCitricAcid") == "true" ||
+        getItem("enableCitricAcid") == null,
+      enableHeraPro:
+        getItem("enableHeraPro") == "true" || getItem("enableHeraPro") == null,
+      enableDualUltra:
+        getItem("enableDualUltra") == "true" ||
+        getItem("enableDualUltra") == null,
     });
 
     setLoading(false);

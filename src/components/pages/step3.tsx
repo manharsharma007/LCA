@@ -49,7 +49,13 @@ function Step3() {
       washTime: washTime,
     });
     // update the checkboxes
-    updateState({ enableWashGrid: getItem("enableWashGrid") == "true" });
+    updateState({
+      enableWashGrid:
+        getItem("enableWashGrid") == "true" ||
+        (getItem("enableWashGrid") == null &&
+          getItem("enableWashLowCarbon") == null &&
+          getItem("enableWashNatural") == null),
+    });
     updateState({
       enableWashLowCarbon: getItem("enableWashLowCarbon") == "true",
     });

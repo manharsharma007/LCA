@@ -29,7 +29,10 @@ function Step5() {
       dryerLowCarbon: getSavedNumber("dryerLowCarbon", 5),
       dryerGas: getSavedNumber("dryerGas", 5),
       dryerType: getItem("dryerType"),
-      enableDryerGrid: getItem("enableDryerGrid") == "true",
+      enableDryerGrid:
+        getItem("enableDryerGrid") == "true" ||
+        (getItem("enableDryerGrid") == null &&
+          getItem("enableDryerLowCarbon") == null),
       enableDryerLowCarbon: getItem("enableDryerLowCarbon") == "true",
     });
 
@@ -70,7 +73,9 @@ function Step5() {
                 id: "ed",
                 text: "Standard electric dryer",
                 value: "0",
-                checked: state.dryerType === "dryerElectric",
+                checked:
+                  state.dryerType === "dryerElectric" ||
+                  state.dryerType == null,
                 onClick: () => {
                   updateState({
                     dryerType: "dryerElectric",
@@ -154,7 +159,7 @@ function Step5() {
               />
             </>
           )}
-          {state.dryerType == "dryerElectric" && (
+          {(state.dryerType == "dryerElectric" || state.dryerType == null) && (
             <>
               <h4 className="flex items-start text-2xl font-semibold text-[#333] mt-16">
                 <span
