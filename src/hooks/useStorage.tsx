@@ -25,6 +25,14 @@ type props = {
 };
 
 function useStorage() {
+  const getSavedNumber = (key: string, defaultValue: number) => {
+    let value;
+    // Get the value from local storage if it exists
+    value = localStorage.getItem(key);
+    value = value !== null ? parseFloat(value) : defaultValue;
+    return value;
+  };
+
   const getItem = (key: string) => {
     let value;
     // Get the value from local storage if it exists
@@ -35,7 +43,7 @@ function useStorage() {
     localStorage.setItem(key, value);
   };
 
-  return { getItem, saveToLocalStorage };
+  return { getItem, getSavedNumber, saveToLocalStorage };
 }
 
 export default useStorage;

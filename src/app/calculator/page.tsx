@@ -12,22 +12,35 @@ import Step6 from "@/components/pages/step6";
 import Step7 from "@/components/pages/step7";
 import Step8 from "@/components/pages/step8";
 
+const pages = [
+  "Manufacturing",
+  "Transportation from Supplier",
+  "Washing Process",
+  "Detergent Usage",
+  "Drying Process",
+  "Transportation to Healthcare",
+  "Number of Uses",
+  "End of Life",
+];
+
 const Calculator = () => {
   const [page, setPage] = useState(1);
 
   return (
     <div className="container mx-auto my-10">
       <div className="mx-auto">
-        <Progressbar
-          width={((page / 8) * 100).toFixed(2)}
-          total="8"
-          step={page}
-        />
+        <div className="flex flex-col justify-between gap-4 text-center content-center items-center">
+          <Progressbar
+            width={((page / 8) * 100).toFixed(2)}
+            total="8"
+            step={page}
+          />
+        </div>
         <Link href={"/"}>
           <button className="bg-white text-[#444] absolute top-[20px] right-[20px]">
             <span
               className="material-symbols-outlined"
-              style={{ fontSize: "30px" }}
+              style={{ fontSize: "36px", color: "#024C96" }}
             >
               cancel
             </span>
@@ -35,7 +48,7 @@ const Calculator = () => {
         </Link>
       </div>
 
-      <div className="w-[80%] mx-auto relative mt-[12%]">
+      <div className="w-[80%] mx-auto relative mt-[10%]">
         {(() => {
           switch (page) {
             case 2:
