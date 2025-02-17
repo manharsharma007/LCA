@@ -4,6 +4,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import "material-symbols";
 import useParametric from "@/hooks/useParametric";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import { columns } from "@/lib/utils";
 import { DataTable } from "@/components/calculator/dataTable";
 import Loader from "@/components/calculator/loader";
@@ -82,6 +83,11 @@ const units = [
   "m3 depriv.",
 ];
 
+let vozzolaParameters: any = [
+  [7.303571429, 1.251487342, 0.6257436709],
+  [4.897321429, 1.059391702, 0.3178175105],
+];
+
 function Report() {
   const [loading, setLoading] = useState(true);
   const [parameters, setParameters] = useState<number[][]>([]);
@@ -155,6 +161,14 @@ function Report() {
     });
     setData(dataComputed);
     setLoading(false);
+
+    // adding model output to vozzola
+    vozzolaParameters[0][3] = parametersC[1].reduce(
+      (partialSum, a) => partialSum + a,
+      0
+    );
+    vozzolaParameters[1][3] =
+      -1 * parametersC[24].reduce((partialSum, a) => partialSum + a, 0);
   }, []);
 
   return (
@@ -322,6 +336,144 @@ function Report() {
               }}
               borderRadius={50}
             />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h4 className="flex items-start gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center mb-2">
+                  <span className="material-symbols-outlined">
+                    horizontal_rule
+                  </span>
+                  Carbon Emission
+                  <span className="lowercase">
+                    (kg CO<sub>2</sub> eq.)
+                  </span>
+                  <span className="material-symbols-outlined">
+                    horizontal_rule
+                  </span>
+                </h4>
+                <PieChart
+                  width={500}
+                  height={250}
+                  series={[
+                    {
+                      arcLabel: (item) =>
+                        `${(
+                          (Math.exp(item.value) /
+                            vozzolaParameters[0].reduce(
+                              (a: number, b: number) => a + Math.exp(b),
+                              0
+                            )) *
+                          100
+                        ).toFixed(2)}%`,
+                      arcLabelMinAngle: 10,
+                      arcLabelRadius: "80%",
+                      innerRadius: 30,
+                      paddingAngle: 5,
+                      cornerRadius: 5,
+                      data: [
+                        {
+                          value: vozzolaParameters[0][0].toFixed(2),
+                          color: "#cc1122aa",
+                          label: "Disposable",
+                        },
+                        {
+                          value: vozzolaParameters[0][1].toFixed(2),
+                          color: "orange",
+                          label: "Reusable",
+                        },
+                        {
+                          value: vozzolaParameters[0][2].toFixed(2),
+                          color: "green",
+                          label: "RZ Reusable",
+                        },
+                        {
+                          value: parameters[1].reduce(
+                            (partialSum, a) => partialSum + a,
+                            0
+                          ),
+                          color: "grey",
+                          label: "Model Output",
+                        },
+                      ],
+                    },
+                  ]}
+                  sx={{
+                    [`& .${pieArcLabelClasses.root}`]: {
+                      fontWeight: "bold",
+                      fill: "#fff",
+                      fontSize: 12,
+                      transformOrigin: "center",
+                    },
+                  }}
+                />
+              </div>
+
+              <div>
+                <h4 className="flex items-start gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center mb-2">
+                  <span className="material-symbols-outlined">
+                    horizontal_rule
+                  </span>
+                  Water Usage
+                  <span className="lowercase">
+                    (m<sup>3</sup>)
+                  </span>
+                  <span className="material-symbols-outlined">
+                    horizontal_rule
+                  </span>
+                </h4>
+                <PieChart
+                  width={500}
+                  height={250}
+                  series={[
+                    {
+                      arcLabel: (item) =>
+                        `${(
+                          (Math.exp(item.value) /
+                            vozzolaParameters[1].reduce(
+                              (a: number, b: number) => a + Math.exp(b),
+                              0
+                            )) *
+                          100
+                        ).toFixed(2)}%`,
+                      arcLabelMinAngle: 10,
+                      arcLabelRadius: "80%",
+                      innerRadius: 30,
+                      paddingAngle: 5,
+                      cornerRadius: 5,
+                      data: [
+                        {
+                          value: vozzolaParameters[1][0].toFixed(2),
+                          color: "#cc1122aa",
+                          label: "Disposable",
+                        },
+                        {
+                          value: vozzolaParameters[1][1].toFixed(2),
+                          color: "orange",
+                          label: "Reusable",
+                        },
+                        {
+                          value: vozzolaParameters[1][2].toFixed(2),
+                          color: "green",
+                          label: "RZ Reusable",
+                        },
+                        {
+                          value: vozzolaParameters[1][3].toFixed(2),
+                          color: "grey",
+                          label: "Model Output",
+                        },
+                      ],
+                    },
+                  ]}
+                  sx={{
+                    [`& .${pieArcLabelClasses.root}`]: {
+                      fontWeight: "bold",
+                      fill: "#fff",
+                      fontSize: 12,
+                      transformOrigin: "center",
+                    },
+                  }}
+                />
+              </div>
+            </div>
           </div>
           <div>
             <h4 className="flex items-center text-center gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center">
