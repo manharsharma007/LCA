@@ -36,8 +36,8 @@ export default function Home() {
               Go Back
             </button>
           </Link>
-          <div className="text-center mx-auto w-[400px]">
-            <img src="/logo.png" alt="" width={400} />
+          <div className="text-center mx-auto w-[400px] py-4">
+            <img src="/logo-new.png" alt="" width={400} />
           </div>
           <Link href={"calculator"}>
             <button

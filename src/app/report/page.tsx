@@ -3,8 +3,7 @@ import Link from "next/link";
 import React, { useEffect, useReducer, useState } from "react";
 import "material-symbols";
 import useParametric from "@/hooks/useParametric";
-import { BarChart } from "@mui/x-charts/BarChart";
-import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
+import { BarChart, barLabelClasses } from "@mui/x-charts/BarChart";
 import { columns } from "@/lib/utils";
 import { DataTable } from "@/components/calculator/dataTable";
 import Loader from "@/components/calculator/loader";
@@ -339,7 +338,7 @@ function Report() {
             />
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <h4 className="flex items-start gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center mb-2">
+                <h4 className="flex items-start gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center">
                   <span className="material-symbols-outlined">
                     horizontal_rule
                   </span>
@@ -351,65 +350,102 @@ function Report() {
                     horizontal_rule
                   </span>
                 </h4>
-                <PieChart
-                  width={500}
-                  height={250}
+                <BarChart
                   series={[
                     {
-                      arcLabel: (item) =>
-                        `${(
-                          (Math.exp(item.value) /
-                            vozzolaParameters[0].reduce(
-                              (a: number, b: number) => a + Math.exp(b),
-                              0
-                            )) *
-                          100
-                        ).toFixed(2)}%`,
-                      arcLabelMinAngle: 10,
-                      arcLabelRadius: "80%",
-                      innerRadius: 30,
-                      paddingAngle: 5,
-                      cornerRadius: 5,
-                      data: [
-                        {
-                          value: vozzolaParameters[0][0].toFixed(2),
-                          color: "#cc1122aa",
-                          label: "Disposable",
-                        },
-                        {
-                          value: vozzolaParameters[0][1].toFixed(2),
-                          color: "orange",
-                          label: "Reusable",
-                        },
-                        {
-                          value: vozzolaParameters[0][2].toFixed(2),
-                          color: "green",
-                          label: "RZ Reusable",
-                        },
-                        {
-                          value: parameters[1].reduce(
-                            (partialSum, a) => partialSum + a,
+                      data: [vozzolaParameters[0][0].toFixed(2)],
+                      color: "#cc1122aa",
+                      label: `Disposable - ${(
+                        (Math.exp(vozzolaParameters[0][0]) /
+                          vozzolaParameters[0].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
                             0
-                          ),
-                          color: "grey",
-                          label: "Model Output",
-                        },
-                      ],
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
+                    },
+                    {
+                      data: [vozzolaParameters[0][1].toFixed(2)],
+                      color: "orange",
+                      label: `Reusable - ${(
+                        (Math.exp(vozzolaParameters[0][1]) /
+                          vozzolaParameters[0].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
+                            0
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
+                    },
+                    {
+                      data: [vozzolaParameters[0][2].toFixed(2)],
+                      color: "green",
+                      label: `RZ Reusable - ${(
+                        (Math.exp(vozzolaParameters[0][2]) /
+                          vozzolaParameters[0].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
+                            0
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
+                    },
+                    {
+                      data: [vozzolaParameters[0][3].toFixed(2)],
+                      color: "grey",
+                      label: `Model Output - ${(
+                        (Math.exp(vozzolaParameters[0][3]) /
+                          vozzolaParameters[0].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
+                            0
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
                     },
                   ]}
+                  barLabel="value"
+                  slotProps={{
+                    legend: {
+                      labelStyle: {
+                        fontSize: 14,
+                        fill: "#555",
+                      },
+                      direction: "column",
+                      position: {
+                        vertical: "middle",
+                        horizontal: "right",
+                      },
+                      itemMarkWidth: 15,
+                      itemMarkHeight: 15,
+                      markGap: 10,
+                      itemGap: 14,
+                      padding: 0,
+                    },
+                  }}
+                  width={600}
+                  height={350}
+                  margin={{ right: 170 }}
                   sx={{
-                    [`& .${pieArcLabelClasses.root}`]: {
+                    [`& .${barLabelClasses.root}`]: {
                       fontWeight: "bold",
                       fill: "#fff",
                       fontSize: 12,
-                      transformOrigin: "center",
                     },
                   }}
+                  borderRadius={10}
+                  xAxis={[
+                    {
+                      scaleType: "band",
+                      data: ["Impact Categories"],
+                    },
+                  ]}
+                  yAxis={[
+                    {
+                      label: "Environment Impact",
+                    },
+                  ]}
                 />
               </div>
-
               <div>
-                <h4 className="flex items-start gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center mb-2">
+                <h4 className="flex items-start gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center">
                   <span className="material-symbols-outlined">
                     horizontal_rule
                   </span>
@@ -421,57 +457,100 @@ function Report() {
                     horizontal_rule
                   </span>
                 </h4>
-                <PieChart
-                  width={500}
-                  height={250}
+                <BarChart
                   series={[
                     {
-                      arcLabel: (item) =>
-                        `${(
-                          (Math.exp(item.value) /
-                            vozzolaParameters[1].reduce(
-                              (a: number, b: number) => a + Math.exp(b),
-                              0
-                            )) *
-                          100
-                        ).toFixed(2)}%`,
-                      arcLabelMinAngle: 10,
-                      arcLabelRadius: "80%",
-                      innerRadius: 30,
-                      paddingAngle: 5,
-                      cornerRadius: 5,
-                      data: [
-                        {
-                          value: vozzolaParameters[1][0].toFixed(2),
-                          color: "#cc1122aa",
-                          label: "Disposable",
-                        },
-                        {
-                          value: vozzolaParameters[1][1].toFixed(2),
-                          color: "orange",
-                          label: "Reusable",
-                        },
-                        {
-                          value: vozzolaParameters[1][2].toFixed(2),
-                          color: "green",
-                          label: "RZ Reusable",
-                        },
-                        {
-                          value: vozzolaParameters[1][3].toFixed(2),
-                          color: "grey",
-                          label: "Model Output",
-                        },
-                      ],
+                      data: [vozzolaParameters[1][0].toFixed(2)],
+                      color: "#cc1122aa",
+                      label: `Disposable - ${(
+                        (Math.exp(vozzolaParameters[1][0]) /
+                          vozzolaParameters[1].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
+                            0
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
+                    },
+                    {
+                      data: [vozzolaParameters[1][1].toFixed(2)],
+                      color: "orange",
+                      label: `Reusable - ${(
+                        (Math.exp(vozzolaParameters[1][1]) /
+                          vozzolaParameters[1].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
+                            0
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
+                    },
+                    {
+                      data: [vozzolaParameters[1][2].toFixed(2)],
+                      color: "green",
+                      label: `RZ Reusable - ${(
+                        (Math.exp(vozzolaParameters[1][2]) /
+                          vozzolaParameters[1].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
+                            0
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
+                    },
+                    {
+                      data: [vozzolaParameters[1][3].toFixed(2)],
+                      color: "grey",
+                      label: `Model Output - ${(
+                        (Math.exp(vozzolaParameters[1][3]) /
+                          vozzolaParameters[1].reduce(
+                            (a: number, b: number) => a + Math.exp(b),
+                            0
+                          )) *
+                        100
+                      ).toFixed(2)}%`,
                     },
                   ]}
+                  barLabel="value"
+                  rightAxis={{}}
+                  leftAxis={null}
+                  slotProps={{
+                    legend: {
+                      labelStyle: {
+                        fontSize: 14,
+                        fill: "#555",
+                      },
+                      direction: "column",
+                      position: {
+                        vertical: "middle",
+                        horizontal: "left",
+                      },
+                      itemMarkWidth: 15,
+                      itemMarkHeight: 15,
+                      markGap: 10,
+                      itemGap: 14,
+                      padding: 0,
+                    },
+                  }}
+                  width={600}
+                  height={350}
+                  margin={{ left: 190 }}
                   sx={{
-                    [`& .${pieArcLabelClasses.root}`]: {
+                    [`& .${barLabelClasses.root}`]: {
                       fontWeight: "bold",
                       fill: "#fff",
                       fontSize: 12,
-                      transformOrigin: "center",
                     },
                   }}
+                  borderRadius={10}
+                  xAxis={[
+                    {
+                      scaleType: "band",
+                      data: ["Impact Categories"],
+                    },
+                  ]}
+                  yAxis={[
+                    {
+                      label: "Environment Impact",
+                    },
+                  ]}
                 />
               </div>
             </div>

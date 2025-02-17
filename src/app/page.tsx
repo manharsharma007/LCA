@@ -22,23 +22,27 @@ const roboto_sc = Roboto_Condensed({
 
 export default function Home() {
   return (
-    <div className="fixed bg-[url(/new-bg.jpg)] bg-no-repeat bg-fixed w-screen h-screen bg-center bg-opacity-25">
-      <div className="container mx-auto">
+    <>
+      <div className="fixed bg-[url(/new-bg.jpg)] bg-no-repeat bg-fixed w-screen h-screen bg-center bg-opacity-25 z-[-2]"></div>
+      <div className="container mx-auto scroll-auto">
         <div className="flex flex-row justify-between align-middle items-center">
-          <div className="text-center mx-auto w-[400px] relative p-2">
+          <div className="text-center mx-auto w-[400px] relative p-2 py-4 my-4">
             <div className="absolute bg-[rgba(255,255,255,1)] w-full h-full blur-xl z-[-1]"></div>
-            <img src="/logo.png" alt="" width={400} />
+            <img src="/logo-new.png" alt="" width={400} />
           </div>
         </div>
 
-        <div className="px-4 py-4 bg-white rounded-lg flex gap-4 border border-[#eee] shadow-md items-center bg-[url(/bg-menu.png)] bg-no-repeat bg-right">
+        <div className="px-4 py-[0.8rem] bg-white rounded-lg flex gap-4 border border-[#eee] shadow-md items-center bg-[url(/bg-menu.png)] bg-no-repeat bg-right relative">
           <Link href={"introduction"}>
             <button
               type="button"
-              className="text-[#666]  text-lg flex items-center"
+              className="text-[#666]  text-lg flex items-center group"
             >
               Introduction
-              <span className="material-symbols-outlined ps-4 text-[#4F855B]">
+              <span
+                className="material-symbols-outlined ps-3 text-[#4F855B] group-hover:translate-x-2 transition-all duration-200 ease-in-out"
+                style={{ fontSize: 22 }}
+              >
                 info
               </span>
             </button>
@@ -47,10 +51,13 @@ export default function Home() {
           <Link href={"calculator"}>
             <button
               type="button"
-              className="text-[#666] text-lg flex items-center"
+              className="text-[#666] text-lg flex items-center group"
             >
               Get Started
-              <span className="material-symbols-outlined ps-4 text-[#4F855B]">
+              <span
+                className="material-symbols-outlined ps-3 text-[#4F855B] group-hover:translate-x-2 transition-all duration-200 ease-in-out"
+                style={{ fontSize: 22 }}
+              >
                 arrow_circle_right
               </span>
             </button>
@@ -82,7 +89,7 @@ export default function Home() {
               </li>
             </ul>
           </div>
-          <div className="mt-24 flex flex-row justify-center">
+          <div className="mt-24 flex flex-row justify-center relative">
             <Link href={"calculator"}>
               <button
                 type="button"
@@ -97,6 +104,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
