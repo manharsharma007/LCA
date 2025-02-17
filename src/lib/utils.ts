@@ -9,6 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export type ReportDef = {
   impactCategory: string;
   unit: string;
+  total: string;
   manufacturing: string;
   transportSupplier: string;
   washing: string;
@@ -27,6 +28,10 @@ export const columns: ColumnDef<ReportDef>[] = [
   {
     accessorKey: "unit",
     header: "Unit",
+  },
+  {
+    accessorKey: "total",
+    header: "Total",
   },
   {
     accessorKey: "manufacturing",

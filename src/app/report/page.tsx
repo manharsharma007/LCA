@@ -118,6 +118,7 @@ function Report() {
         impactCategory: v,
         unit: units[i],
       };
+      x["total"] = parametersC[i].reduce((a, b) => a + b).toExponential(3);
       x["manufacturing"] = parametersC[i][0].toExponential(3);
       x["transportSupplier"] = parametersC[i][1].toExponential(3);
       x["washing"] = parametersC[i][2].toExponential(3);
