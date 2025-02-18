@@ -37,7 +37,7 @@ const Calculator = () => {
           />
         </div>
         <Link href={"/"}>
-          <button className="bg-white text-[#444] absolute top-[20px] right-[20px]">
+          <button className="bg-white text-[#444] absolute top-[20px] right-[20px] m-0 p-0">
             <span
               className="material-symbols-outlined"
               style={{ fontSize: "36px", color: "#024C96" }}
@@ -48,7 +48,7 @@ const Calculator = () => {
         </Link>
       </div>
 
-      <div className="w-[80%] mx-auto relative mt-[10%]">
+      <div className="w-[80%] mx-auto relative mt-[10%] mb-[100px]">
         {(() => {
           switch (page) {
             case 2:

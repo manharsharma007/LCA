@@ -205,9 +205,11 @@ function Report() {
                 {
                   data: state.column1.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column1)) /
-                        (Math.max(...state.column1) -
-                          Math.min(...state.column1))) *
+                      (Math.exp(v) /
+                        state.column1.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "Materials manufacturing",
@@ -217,9 +219,11 @@ function Report() {
                 {
                   data: state.column2.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column2)) /
-                        (Math.max(...state.column2) -
-                          Math.min(...state.column2))) *
+                      (Math.exp(v) /
+                        state.column2.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "Transportation to RZ centre",
@@ -229,9 +233,11 @@ function Report() {
                 {
                   data: state.column3.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column3)) /
-                        (Math.max(...state.column3) -
-                          Math.min(...state.column3))) *
+                      (Math.exp(v) /
+                        state.column3.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "Washing-Electricity/Natural gas consumption",
@@ -241,9 +247,11 @@ function Report() {
                 {
                   data: state.column4.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column4)) /
-                        (Math.max(...state.column4) -
-                          Math.min(...state.column4))) *
+                      (Math.exp(v) /
+                        state.column4.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "Washing-Water consumption",
@@ -253,9 +261,11 @@ function Report() {
                 {
                   data: state.column5.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column5)) /
-                        (Math.max(...state.column5) -
-                          Math.min(...state.column5))) *
+                      (Math.exp(v) /
+                        state.column5.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "Washing-Detergent",
@@ -265,9 +275,11 @@ function Report() {
                 {
                   data: state.column6.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column6)) /
-                        (Math.max(...state.column6) -
-                          Math.min(...state.column6))) *
+                      (Math.exp(v) /
+                        state.column6.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "Drying",
@@ -277,9 +289,11 @@ function Report() {
                 {
                   data: state.column7.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column7)) /
-                        (Math.max(...state.column7) -
-                          Math.min(...state.column7))) *
+                      (Math.exp(v) /
+                        state.column7.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "Transportation to the cosumer",
@@ -289,9 +303,11 @@ function Report() {
                 {
                   data: state.column8.map(
                     (v: number) =>
-                      ((v - Math.min(...state.column8)) /
-                        (Math.max(...state.column8) -
-                          Math.min(...state.column8))) *
+                      (Math.exp(v) /
+                        state.column8.reduce(
+                          (a: number, b: number) => a + Math.exp(b),
+                          0
+                        )) *
                       100
                   ),
                   label: "End of Life",
@@ -344,7 +360,7 @@ function Report() {
                   </span>
                   Carbon Emission
                   <span className="lowercase">
-                    (kg CO<sub>2</sub> eq.)
+                    (kg CO<sub>2</sub> eq./kg)
                   </span>
                   <span className="material-symbols-outlined">
                     horizontal_rule
@@ -353,14 +369,10 @@ function Report() {
                 <BarChart
                   series={[
                     {
-                      data: [vozzolaParameters[0][0].toFixed(2)],
+                      data: [vozzolaParameters[1][0].toFixed(2)],
                       color: "#cc1122aa",
                       label: `Disposable - ${(
-                        (Math.exp(vozzolaParameters[0][0]) /
-                          vozzolaParameters[0].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[0][0] / vozzolaParameters[0][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
@@ -368,11 +380,7 @@ function Report() {
                       data: [vozzolaParameters[0][1].toFixed(2)],
                       color: "orange",
                       label: `Reusable - ${(
-                        (Math.exp(vozzolaParameters[0][1]) /
-                          vozzolaParameters[0].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[0][1] / vozzolaParameters[0][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
@@ -380,11 +388,7 @@ function Report() {
                       data: [vozzolaParameters[0][2].toFixed(2)],
                       color: "green",
                       label: `RZ Reusable - ${(
-                        (Math.exp(vozzolaParameters[0][2]) /
-                          vozzolaParameters[0].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[0][2] / vozzolaParameters[0][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
@@ -392,11 +396,7 @@ function Report() {
                       data: [vozzolaParameters[0][3].toFixed(2)],
                       color: "grey",
                       label: `Model Output - ${(
-                        (Math.exp(vozzolaParameters[0][3]) /
-                          vozzolaParameters[0].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[0][3] / vozzolaParameters[0][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
@@ -451,7 +451,7 @@ function Report() {
                   </span>
                   Water Usage
                   <span className="lowercase">
-                    (m<sup>3</sup>)
+                    (m<sup>3</sup>/kg)
                   </span>
                   <span className="material-symbols-outlined">
                     horizontal_rule
@@ -463,11 +463,7 @@ function Report() {
                       data: [vozzolaParameters[1][0].toFixed(2)],
                       color: "#cc1122aa",
                       label: `Disposable - ${(
-                        (Math.exp(vozzolaParameters[1][0]) /
-                          vozzolaParameters[1].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[1][0] / vozzolaParameters[1][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
@@ -475,11 +471,7 @@ function Report() {
                       data: [vozzolaParameters[1][1].toFixed(2)],
                       color: "orange",
                       label: `Reusable - ${(
-                        (Math.exp(vozzolaParameters[1][1]) /
-                          vozzolaParameters[1].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[1][1] / vozzolaParameters[1][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
@@ -487,11 +479,7 @@ function Report() {
                       data: [vozzolaParameters[1][2].toFixed(2)],
                       color: "green",
                       label: `RZ Reusable - ${(
-                        (Math.exp(vozzolaParameters[1][2]) /
-                          vozzolaParameters[1].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[1][2] / vozzolaParameters[1][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
@@ -499,11 +487,7 @@ function Report() {
                       data: [vozzolaParameters[1][3].toFixed(2)],
                       color: "grey",
                       label: `Model Output - ${(
-                        (Math.exp(vozzolaParameters[1][3]) /
-                          vozzolaParameters[1].reduce(
-                            (a: number, b: number) => a + Math.exp(b),
-                            0
-                          )) *
+                        (vozzolaParameters[1][3] / vozzolaParameters[1][0]) *
                         100
                       ).toFixed(2)}%`,
                     },
