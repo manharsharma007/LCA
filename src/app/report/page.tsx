@@ -538,6 +538,12 @@ function Report() {
                 />
               </div>
             </div>
+            <p>
+              <em>
+                *The percentage values are computed with Disposable as baseline
+                in the above graphs.
+              </em>
+            </p>
           </div>
           <div>
             <h4 className="flex items-center text-center gap-4 text-xl text-[#024C96] tracking-[1px] uppercase font-bold justify-center">

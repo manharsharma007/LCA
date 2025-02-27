@@ -32,8 +32,7 @@ function Step1() {
             >
               help
             </span>
-            Do you know if these are single layer (default) or reinforced
-            (trilaminate)?
+            Do the textiles have reinforced (trilaminates) components?
           </h4>
           <RadioButton
             styles="mt-10 mx-auto w-[92%]"
@@ -71,7 +70,7 @@ function Step1() {
                 items={[
                   {
                     id: "1",
-                    text: "Polyethylene terephthalate",
+                    text: "Polyester",
                     value: ratioPet,
                     step: 1,
                     default: ratioPet,

@@ -103,11 +103,11 @@ function Step3() {
             Please input any values if known? The defaults are filled for
             convenience and can be changed.
           </h4>
-          <div className="grid grid-cols-4 ms-9 mt-10 mx-auto">
+          <div className="grid grid-cols-4 ms-9 mt-10 mx-auto gap-4">
             <InputBox
               placeholder={state.washTemp}
               value={state.washTemp}
-              text="Set temperature (C)"
+              text="Highest Water temperature (C)"
               onChange={(e: any) => {
                 saveToLocalStorage("washTemp", e);
                 updateState({ washTemp: e });
@@ -125,7 +125,7 @@ function Step3() {
             <InputBox
               placeholder={state.washColdTemp}
               value={state.washColdTemp}
-              text="Cold temperature (C)"
+              text="Ambient Water temperature (C)"
               onChange={(e: any) => {
                 saveToLocalStorage("washColdTemp", e);
                 updateState({ washColdTemp: e });
@@ -184,8 +184,7 @@ function Step3() {
             >
               help
             </span>
-            If reinforced: Please adjust the ratio of trilaminate to
-            single-layer (100% polyester)
+            Please select the mode of water heating during washing
           </h4>
           <CheckBoxInput
             styles="mt-10 mx-auto w-[92%]"

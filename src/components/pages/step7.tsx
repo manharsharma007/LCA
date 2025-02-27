@@ -31,7 +31,7 @@ function Step7() {
             withdrawn from service from either loss or damage.
           </h4>
           <InputBox
-            styles="mt-10 mx-auto w-[92%]"
+            styles="mt-10 mx-[4%] w-[22%]"
             placeholder="60"
             text="Number of uses"
             value={uses}

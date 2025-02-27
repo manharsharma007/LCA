@@ -108,7 +108,7 @@ function Step5() {
                 >
                   help
                 </span>
-                Please adjust the usage of the Electric dryer
+                Please adjust the usage of the Heat Pump dryer
               </h4>
               <CheckBoxInput
                 styles="mt-10 mx-auto w-[92%]"
@@ -168,7 +168,7 @@ function Step5() {
                 >
                   help
                 </span>
-                Please adjust the usage of the Gas dryer
+                Please adjust the usage of the Electrical dryer
               </h4>
 
               <CheckBoxInput
@@ -233,7 +233,7 @@ function Step5() {
               </h4>
 
               <InputBox
-                styles="mt-10 mx-auto w-[92%]"
+                styles="mt-10 mx-[4%] w-[22%]"
                 placeholder="5 kWh"
                 text="Gas consumption (kWh)"
                 value={state.dryerGas}

@@ -12,7 +12,7 @@ function Step2() {
     },
     {
       supplierTransportTruck: 100,
-      supplierTransportSea: 0,
+      supplierTransportSea: 2000,
       supplierTransportRail: 0,
       supplierTransportAir: 0,
       enableTruck: true,
@@ -29,7 +29,7 @@ function Step2() {
       supplierTransportTruck: getSavedNumber("supplierTransportTruck", 100),
     });
     updateState({
-      supplierTransportSea: getSavedNumber("supplierTransportSea", 0),
+      supplierTransportSea: getSavedNumber("supplierTransportSea", 2000),
     });
     updateState({
       supplierTransportRail: getSavedNumber("supplierTransportRail", 0),
@@ -45,7 +45,14 @@ function Step2() {
           getItem("enableRail") == null &&
           getItem("enableAir") == null),
     });
-    updateState({ enableSea: getItem("enableSea") == "true" });
+    updateState({
+      enableSea:
+        getItem("enableSea") == "true" ||
+        (getItem("enableSea") == null &&
+          getItem("enableTruck") == null &&
+          getItem("enableRail") == null &&
+          getItem("enableAir") == null),
+    });
     updateState({ enableRail: getItem("enableRail") == "true" });
     updateState({ enableAir: getItem("enableAir") == "true" });
 
@@ -65,7 +72,8 @@ function Step2() {
             >
               help
             </span>
-            Do you know the your mode of transportation from supplier (in km)?
+            Do you know the your mode of transportation from manufacturer (in
+            km)?
           </h4>
           <CheckBoxInput
             styles="mt-10 mx-auto w-[92%]"
